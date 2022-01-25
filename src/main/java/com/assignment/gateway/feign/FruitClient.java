@@ -1,0 +1,26 @@
+package com.assignment.gateway.feign;
+
+import com.assignment.gateway.dto.ProductDTO;
+import com.assignment.gateway.dto.ToKenDTO;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.net.URI;
+import java.util.List;
+
+@FeignClient(name = "fruit", url = "/")
+public interface FruitClient {
+    @GetMapping("/token")
+    ToKenDTO getToken(URI uri);
+
+    @GetMapping("/product")
+    List<String> getProductList(URI uri, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization);
+
+    @GetMapping("/product")
+    ProductDTO getProduct(URI uri,
+                          @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization,
+                          @RequestParam String name);
+}

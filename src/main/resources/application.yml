@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    jdbc.resultsettable: info
+    jdbc.sqlonly: info
+    org.springframework.web: error
+  config: classpath:logback.xml
+
+api:
+  fruit:
+    host: aHR0cDovL2ZydWl0LmFwaS5wb3N0eXBlLm5ldA==
+  vegetable:
+    host: aHR0cDovL3ZlZ2V0YWJsZS5hcGkucG9zdHlwZS5uZXQ=

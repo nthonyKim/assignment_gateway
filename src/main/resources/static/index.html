@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grocery API gateway</title>
+</head>
+<body>
+    <div>
+        <select name="productType">
+            <option>과일</option>
+            <option>채소</option>
+        </select>
+        <input type="text" name="name" maxlength="4"/>
+        <button type="button" id="search">조회</button>
+    </div>
+    <div>
+        <p id="searchResult"></p>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $("#search").on("click", function(){
+        let name = $(":text[name='name']").val();
+        let productType = $("select[name='productType'] option:selected").val();
+
+        if(name === '') {
+            alert("이름값은 필수 입니다.");
+            return false;
+        }
+
+        $.get(window.location.href + "grocery", { name : name, productType : productType },
+        function(result) {
+            $("#searchResult").text(JSON.stringify(result.data));
+        },'json')
+        .fail(function(result) {
+            alert(result.responseJSON.message);
+        });
+    })
+</script>
+</html>
