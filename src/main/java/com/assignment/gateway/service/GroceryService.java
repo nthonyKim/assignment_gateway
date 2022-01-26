@@ -11,6 +11,7 @@ import com.assignment.gateway.util.CookieUtils;
 import feign.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -52,9 +53,9 @@ public class GroceryService {
 
         // token을 response의 cookie 값으로 받아오므로 token을 파싱해주는 과정이 필요
         Response response = vegetableClient.getToken(uri);
-        Map<String, String> parseCookie = CookieUtils.parserCookie(response.headers().get("set-cookie"));
+        Map<String, String> parseCookie = CookieUtils.parserCookie(response.headers().get(HttpHeaders.SET_COOKIE));
 
-        String token = parseCookie.get("Authorization");
+        String token = parseCookie.get(HttpHeaders.AUTHORIZATION);
         List<String> productList = vegetableClient.getProductList(uri, token);
 
         if(!productList.contains(name)){

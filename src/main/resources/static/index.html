@@ -30,10 +30,12 @@
 
         $.get(window.location.href + "grocery", { name : name, productType : productType },
         function(result) {
-            $("#searchResult").text(JSON.stringify(result.data));
+            let text = result.data.name + "의 가격은 " + result.data.price + "원 입니다.";
+            $("#searchResult").text(text);
         },'json')
         .fail(function(result) {
-            alert(result.responseJSON.message);
+            let text = result.responseJSON.message;
+            $("#searchResult").text(text);
         });
     })
 </script>
